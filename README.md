@@ -1,2 +1,248 @@
-# ImpactLens-
-An AI-powered legislative accountability system that compares attendance records with actual contributions — debates, bills proposed, and policy influence — to generate a true Legislative Effectiveness Score for elected representatives.
+# 🏛️ Attendance vs Impact Analyzer
+
+> *Because showing up is not the same as making a difference.*
+
+An AI-powered legislative accountability system that compares **attendance records** with **actual contributions** — debates, bills proposed, and policy influence — to generate a true **Legislative Effectiveness Score** for elected representatives.
+
+---
+
+## 📌 Problem Statement
+
+Legislative attendance is the most commonly cited metric for evaluating a representative's performance. But attendance alone does not reflect real impact.
+
+A legislator can attend **90% of sessions** and contribute nothing meaningful — while another may miss days yet drive landmark policy change. This project challenges that assumption by building a system that measures **what actually matters**.
+
+---
+
+## 🎯 Purpose
+
+Develop an AI system that:
+- Collects and analyses legislative attendance records
+- Extracts debate and discussion participation using NLP
+- Tracks bill proposals and policy influence
+- Combines all factors into a **weighted effectiveness score**
+- Displays results on a **Legislative Accountability Dashboard**
+
+---
+
+## 🏗️ System Architecture
+
+```
+Legislative Records
+(Session attendance data)
+        ↓
+Activity Analysis Engine
+(Debate and participation extraction via NLP)
+        ↓
+Impact Evaluation Model
+(Measure legislative contributions)
+        ↓
+Performance Scoring Engine
+(Attendance vs Impact comparison)
+        ↓
+Legislative Accountability Dashboard
+(Effectiveness insights for citizens and institutions)
+```
+
+---
+
+## ⚙️ Core Features
+
+| Feature | Description |
+|---|---|
+| **Attendance Analysis** | Track session participation rates |
+| **Contribution Detection** | Measure debate and discussion involvement |
+| **Policy Impact Measurement** | Evaluate influence on legislation |
+| **Legislative Effectiveness Score** | Combine attendance and impact metrics into a single score |
+| **Accountability Dashboard** | Visual insights for citizens, researchers, and institutions |
+
+---
+
+## 📊 Impact Scoring Model
+
+Each legislator receives a weighted effectiveness score based on:
+
+| Factor | Weight |
+|---|---|
+| Attendance | 30% |
+| Debate Participation | 30% |
+| Bills Proposed | 25% |
+| Policy Influence | 15% |
+
+> **Key insight:** Attendance is only 30% of the score. A legislator who misses sessions but actively drives policy can still outperform one who is always present but passive.
+
+---
+
+## 🧪 Example
+
+### Input
+
+| Legislator | Attendance Rate | Bills Proposed | Debate Participation |
+|---|---|---|---|
+| L101 | 92% | 6 | High |
+| L102 | 90% | 1 | Low |
+| L103 | 75% | 3 | Medium |
+
+### Output — Effectiveness Scores
+
+| Legislator | Effectiveness Rating |
+|---|---|
+| L101 | ✅ High |
+| L102 | ❌ Low |
+| L103 | 🟡 Moderate |
+
+> L101 and L102 have nearly identical attendance — but very different impact. L102's high attendance masked low contribution, which this system exposes.
+
+---
+
+## 🗄️ Database Design (DBMS Layer)
+
+This project is built on a relational database that tracks:
+
+```
+Legislators → Attendance_Records → Debate_Participation
+                    ↓
+              Bills_Proposed → Policy_Outcomes
+                    ↓
+              Effectiveness_Score (calculated view)
+                    ↓
+              Reward_Eligibility (flag for high-impact, low-attendance)
+              Audit_Log (every AI decision with timestamp + validator)
+```
+
+### Key Tables
+
+- `legislators` — ID, name, constituency, term
+- `attendance` — legislator_id, session_date, present/absent
+- `debates` — legislator_id, session_id, participation_level, quality_flag
+- `bills` — bill_id, proposed_by, co_sponsored_by, status, policy_area
+- `effectiveness_scores` — legislator_id, period, score, rating
+- `audit_log` — decision_id, ai_score, human_validator, timestamp, approved
+
+---
+
+## 🔬 Functional Requirements
+
+| ID | Requirement |
+|---|---|
+| FR1 | Collect legislative attendance records |
+| FR2 | Analyse debates and participation using NLP |
+| FR3 | Track bills proposed and supported |
+| FR4 | Calculate legislative effectiveness scores |
+| FR5 | Display accountability dashboards |
+
+---
+
+## 📦 SIPOC Overview
+
+| Supplier | Input | Process | Output | Customer |
+|---|---|---|---|---|
+| Parliament records | Attendance logs | Data analysis | Effectiveness scores | Citizens |
+| Legislative transcripts | Debate participation | NLP processing | Participation insights | Researchers |
+| Government data | Bill activity | Impact evaluation | Accountability reports | Policy institutions |
+
+---
+
+## 🤖 AI Accountability Model
+
+> **"AI scores the legislator. Humans validate the score. The institution owns the outcome."**
+
+A core principle of this project is that AI is a **tool**, not a decision-maker. Every score generated by the model:
+1. Is logged in the `audit_log` table with a timestamp
+2. Must be reviewed and approved by a human validator before action
+3. Can be challenged and overridden with documented justification
+
+This prevents the accountability vacuum that arises when AI is treated as the responsible party.
+
+---
+
+## 🔮 Planned Extensions
+
+| Feature | Description |
+|---|---|
+| AI Debate Analyser | Evaluate quality and substance of legislative debates |
+| Policy Influence Tracker | Measure downstream impact on final legislation |
+| Citizen Feedback Analyser | Analyse public response to representatives |
+| Governance Transparency Portal | Public-facing dashboard for voter awareness |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Database | MySQL / PostgreSQL |
+| Backend | Python (FastAPI) |
+| ML Model | Scikit-learn / XGBoost |
+| NLP | spaCy / Transformers |
+| Dashboard | React / Chart.js |
+| Version Control | Git + GitHub |
+
+---
+
+## 📁 Project Structure
+
+```
+attendance-vs-impact-analyzer/
+├── data/
+│   ├── raw/               # Raw legislative records
+│   └── processed/         # Cleaned and structured data
+├── database/
+│   ├── schema.sql         # Table definitions and relationships
+│   └── seed_data.sql      # Sample data for testing
+├── models/
+│   └── effectiveness_model.py   # Scoring logic
+├── api/
+│   └── main.py            # FastAPI backend
+├── dashboard/
+│   └── src/               # Frontend components
+├── notebooks/
+│   └── eda.ipynb          # Exploratory data analysis
+└── README.md
+```
+
+---
+
+## 🚀 Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/attendance-vs-impact-analyzer.git
+cd attendance-vs-impact-analyzer
+
+# Set up database
+psql -U postgres -f database/schema.sql
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Run the API
+uvicorn api.main:app --reload
+
+# Open dashboard
+cd dashboard && npm install && npm start
+```
+
+---
+
+## 📈 Expected Impact
+
+| Area | Impact |
+|---|---|
+| Governance Transparency | Improve accountability beyond attendance metrics |
+| Citizen Awareness | Inform voters with data-driven effectiveness scores |
+| Legislative Performance | Encourage meaningful participation over passive presence |
+| Policy Quality | Improve legislative outcomes through performance-based accountability |
+
+---
+
+## 👩‍💻 Built By
+
+**Purvi** — B.Tech CS (AI & Data Science), Vishwakarma University Pune  
+Industry Project | Subject: DBMS  
+
+---
+
+## 📄 License
+
+MIT License — open for academic and civic use.
